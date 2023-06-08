@@ -11,7 +11,7 @@
       <ul class="comments" id="comments">
         <!-- Комментарии рендерятся из JS -->
       </ul>
-      <div id="form" class="add-form">
+      <div class="add-form">
         <input id="input-name"
           type="text"
           class="add-form-name"
@@ -35,7 +35,11 @@
     const inputComment = document.getElementById('input-comment');
     const buttonForm = document.getElementById('button-form');
     const listElement = document.getElementById('comments');
-    const form = document.getElementById('form');
+    const form = document.querySelector('.add-form');
+
+    form.classList.add('hidden');
+    console.log(form);
+
 
     let comments = [];
 
@@ -138,7 +142,7 @@
         return;
       }
 
-      form.style.display = "none";
+      form.classList.add('hidden');
 
       const newComment = document.createElement('div');
       newComment.textContent = "Загружаю комментарий...";
@@ -165,7 +169,7 @@
         return getComments();
       })
       .then((responseData) => {
-        form.style.display = "flex";
+        form.classList.remove('hidden');
         inputName.value = "";
         inputComment.value = "";
         newComment.remove();
