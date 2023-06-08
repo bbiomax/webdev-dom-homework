@@ -159,16 +159,35 @@
           .replaceAll("<", "&lt;")
           .replaceAll(">", "&gt;")
           .replaceAll('"', "&quot;"),
+          forceError: true,
         }),
       })
       .then((responseData) => {
-        return getComments();
+        if (responseData.status === 400) {
+          throw new Error("Слишком короткий текст");
+        } else if (responseData.status === 500) {
+          throw new Error("Сервер упал");
+        } else {
+          return getComments();
+        }
       })
       .then((responseData) => {
         form.classList.remove('hidden');
         inputName.value = "";
         inputComment.value = "";
         newComment.remove();
+      })
+      .catch((error) => {
+        form.classList.remove('hidden');
+        newComment.remove();
+        if (error.message === "Слишком короткий текст") {
+          alert("Имя и комментарий не должны быть короче 3х символов");
+        } else if (error.message === "Сервер упал") {
+          alert("Сервер сломался, попробуй позже");
+        } else {
+          alert("Проверьте подключение к интернету");
+        }
+        console.warn(error);
       })
     });
 
