@@ -2,10 +2,6 @@ body {
     margin: 0;
   }
 
-  .hidden {
-    display: none;
-  }
-
   .container {
     font-family: Helvetica;
     color: #ffffff;
@@ -138,4 +134,8 @@ body {
 
   .add-form-button:hover {
     opacity: 0.9;
+  }
+  
+  .hidden {
+    display: none;
   }
