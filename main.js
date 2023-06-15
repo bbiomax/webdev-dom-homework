@@ -7,6 +7,9 @@ const buttonForm = document.getElementById('button-form');
 const listElement = document.getElementById('comments');
 const form = document.querySelector('.add-form');
 
+const newComment = document.createElement('div');
+newComment.textContent = "Загружаю комментарий...";
+
 function normalDate(date) {
     date = `${`${("0" + date.getDate()).slice(-2)}.${("0" + (date.getMonth() + 1)).slice(-2)}.${date.getFullYear().toString().slice(-2)} ${("0" + date.getHours()).slice(-2)}:${("0" + date.getMinutes()).slice(-2)}`}`;
     return date;
@@ -55,8 +58,6 @@ buttonForm.addEventListener('click', (event) => {
 
     form.classList.add('hidden');
 
-    const newComment = document.createElement('div');
-    newComment.textContent = "Загружаю комментарий...";
     listElement.appendChild(newComment);
 
     postComments();
@@ -66,4 +67,4 @@ listElement.innerHTML = "Подождите, каментарии загружа
 
 getComments();
 
-export { likeTheComments, commentReply, normalDate, listElement };
+export { likeTheComments, commentReply, normalDate, listElement, inputComment, inputName, form, newComment };

@@ -1,4 +1,4 @@
-import { listElement } from "./main.js";
+import { listElement, inputComment, inputName, form, newComment } from "./main.js";
 import renderComments from "./renderComments.js";
 
 let comments = [];
