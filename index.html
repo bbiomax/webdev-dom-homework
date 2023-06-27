@@ -23,7 +23,7 @@
     return date;
   }
 
-  const renderComments = () => {
+  const renderApp = () => {
 
     const appEl = document.getElementById('app');
 
@@ -111,7 +111,7 @@
       const newComment = document.createElement('div');
       newComment.textContent = "Загружаю комментарий...";
       listElement.appendChild(newComment);
-      
+
       fetch(
         host,
         {
@@ -161,7 +161,7 @@
           comments[index].isLiked = '-active-like';
           comments[index].likes = comments[index].likes + 1;
         }
-        renderComments();
+        renderApp();
 
       });
     }
@@ -178,7 +178,7 @@
     }
   }
 
-  renderComments();
+  renderApp();
 
   const getComments = () => {
     return fetch(
@@ -204,7 +204,7 @@
           };
         });
         comments = appComments;
-        renderComments();
+        renderApp();
       });
 
   };
