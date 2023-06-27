@@ -1,9 +1,21 @@
 import { loginUser } from "../api.js";
 
 export function renderLoginComponent({ appEl, setToken, getComments }) {
-    const appHtml = `
-      <div class="container"> 
-      <div class="add-form">
+
+    let isLoginMode = true;
+
+    const renderForm = () => {
+        const appHtml = `
+      <div class="container">
+      <div class="add-form" style="display: flex; align-items: center">
+      <h1>Форма ${isLoginMode ? 'входа' : 'регистрации'}</h1>
+      ${isLoginMode ? '' : `
+      <input id="name-input"
+      type="text"
+      class="add-form-name"
+      placeholder="Имя"
+    />
+    <br />`}
         <input id="login-input"
           type="text"
           class="add-form-name"
@@ -15,8 +27,10 @@ export function renderLoginComponent({ appEl, setToken, getComments }) {
           class="add-form-name"
           placeholder="Пароль"
         />
-        <div class="add-form-row">
-          <button id="login-button" class="add-form-button">Войти</button>
+        <div class="add-form-row" style="display: flex; flex-direction: column;">
+          <button id="login-button" class="add-form-button">${isLoginMode ? 'Войти' : 'Зарегистрироваться'}</button>
+
+          <button id="toggle-button" class="add-form-button">Перейти ${isLoginMode ? 'к регистрации' : 'ко входу'}</button>
         </div>
       </div>
       `;
@@ -27,12 +41,12 @@ export function renderLoginComponent({ appEl, setToken, getComments }) {
         const login = document.getElementById('login-input').value;
         const password = document.getElementById('password-input').value;
 
-        if(!login) {
+        if (!login) {
             alert('Введите логин');
             return;
         }
 
-        if(!password) {
+        if (!password) {
             alert('Введите пароль');
             return;
         }
@@ -49,4 +63,12 @@ export function renderLoginComponent({ appEl, setToken, getComments }) {
                 alert(error.message);
             })
     });
+
+    document.getElementById('toggle-button').addEventListener('click', () => {
+        isLoginMode = !isLoginMode;
+        renderForm();
+    });   
+    }
+
+    renderForm();
 }
