@@ -74,10 +74,10 @@ const renderApp = () => {
       ${commentsHtml}
     </ul>
     <div class="add-form">
-      <input id="input-name"
+      <input id="input-name" disabled
         type="text"
         class="add-form-name"
-        placeholder="Введите ваше имя"
+        value="Твое имя"
       />
       <textarea id="input-comment"
         type="textarea"
