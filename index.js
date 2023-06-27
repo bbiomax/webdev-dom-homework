@@ -1,4 +1,5 @@
 import { addComment, getAndRender } from "./api.js";
+import { renderLoginComponent } from "./components/login-component.js";
 
 let comments = [];
 
@@ -34,30 +35,11 @@ const renderApp = () => {
     const appEl = document.getElementById('app');
 
     if (!token) {
-        const appHtml = `
-      <div class="container"> 
-      <div class="add-form">
-        <input id="login-input"
-          type="text"
-          class="add-form-name"
-          placeholder="Логин"
-        />
-        <br />
-        <input id="password-input"
-          type="text"
-          class="add-form-name"
-          placeholder="Пароль"
-        />
-        <div class="add-form-row">
-          <button id="login-button" class="add-form-button">Войти</button>
-        </div>
-      </div>
-      `;
-        appEl.innerHTML = appHtml;
-
-        document.getElementById('login-button').addEventListener('click', () => {
-            token = 'Bearer asb4c4boc86gasb4c4boc86g37w3cc3bo3b83k4g37k3bk3cg3c03ck4k';
-            getComments();
+        renderLoginComponent({
+            appEl, setToken: (newToken) => {
+                token = newToken;
+            },
+            getComments,
         });
 
         return;
