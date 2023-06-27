@@ -1,6 +1,6 @@
-let comments = [];
+import { addComment, getAndRender } from "./api.js";
 
-const host = 'https://wedev-api.sky.pro/api/v2/maksim-balyaev/comments';
+let comments = [];
 
 let token = 'Bearer asb4c4boc86gasb4c4boc86g37w3cc3bo3b83k4g37k3bk3cg3c03ck4k';
 
@@ -12,17 +12,7 @@ function normalDate(date) {
 }
 
 const getComments = () => {
-    return fetch(
-        host,
-        {
-            method: 'GET',
-            headers: {
-                Authorization: token,
-            },
-        }
-    ).then((response) => {
-        return response.json();
-    })
+    return getAndRender({ token })
         .then((responseData) => {
             const date = new Date();
             const appComments = responseData.comments.map((comment) => {
@@ -142,33 +132,28 @@ const renderApp = () => {
         newComment.textContent = "Загружаю комментарий...";
         listElement.appendChild(newComment);
 
-        fetch(
-            host,
-            {
-                method: 'POST',
-                headers: {
-                    Authorization: token,
-                },
-                body: JSON.stringify({
-                    text: inputComment.value
-                        .replaceAll("&", "&amp;")
-                        .replaceAll("<", "&lt;")
-                        .replaceAll(">", "&gt;")
-                        .replaceAll('"', "&quot;"),
-                    name: inputName.value
-                        .replaceAll("&", "&amp;")
-                        .replaceAll("<", "&lt;")
-                        .replaceAll(">", "&gt;")
-                        .replaceAll('"', "&quot;"),
-                }),
-            })
-            .then((responseData) => {
-                return getComments();
-            })
-            .then((responseData) => {
-                form.classList.remove('hidden');
+        addComment({
+            text: inputComment.value
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll('"', "&quot;"),
+            name: inputName.value
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll('"', "&quot;"),
+            token,
+        })
+            .then(() => {
                 inputName.value = "";
                 inputComment.value = "";
+            })
+            .then(() => {
+                return getComments();
+            })
+            .then(() => {
+                form.classList.remove('hidden');
                 newComment.remove();
             })
     });
