@@ -31,19 +31,12 @@ const getComments = () => {
 
 };
 
+const appComments = document.getElementById('app-comments');
+
 const renderApp = () => {
     const appEl = document.getElementById('app');
 
-    if (!token) {
-        renderLoginComponent({
-            appEl, setToken: (newToken) => {
-                token = newToken;
-            },
-            getComments,
-        });
-
-        return;
-    }
+    getComments();
 
     const commentsHtml = comments.map((comment, index) => {
         return `<li class="comment">
@@ -73,6 +66,7 @@ const renderApp = () => {
       <!-- Комментарии рендерятся из JS -->
       ${commentsHtml}
     </ul>
+    <p>Чтобы добавить комментарий, <a href="#" id="authorize-to-add" class="authorize-to-add">авторизуйтесь</a></p>
     <div class="add-form">
       <input id="input-name" disabled
         type="text"
@@ -92,13 +86,30 @@ const renderApp = () => {
     </div>
     `;
 
-    appEl.innerHTML = appHtml;
+    appComments.innerHTML = appHtml;
 
     const inputName = document.getElementById('input-name');
     const inputComment = document.getElementById('input-comment');
     const buttonForm = document.getElementById('button-form');
     const listElement = document.getElementById('comments');
+
     const form = document.querySelector('.add-form');
+
+    form.classList.add('hidden');
+    const authorizeToAdd = document.getElementById('authorize-to-add');
+    authorizeToAdd.addEventListener('click', () => {
+        appComments.classList.add('hidden');
+        if (!token) {
+            renderLoginComponent({
+                appEl, setToken: (newToken) => {
+                    token = newToken;
+                },
+                getComments,
+            });
+    
+            return;
+        }
+    });
 
     likeTheComments();
     commentReply();

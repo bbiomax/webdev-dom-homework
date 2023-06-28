@@ -37,7 +37,6 @@ export function renderLoginComponent({ appEl, setToken, getComments }) {
         appEl.innerHTML = appHtml;
 
         document.getElementById('login-button').addEventListener('click', () => {
-
             if (isLoginMode) {
                 const login = document.getElementById('login-input').value;
                 const password = document.getElementById('password-input').value;

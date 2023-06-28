@@ -139,3 +139,7 @@ body {
   .hidden {
     display: none;
   }
+
+  .authorize-to-add {
+    color: white;
+  }
