@@ -33,10 +33,10 @@ const getComments = () => {
 
 const appComments = document.getElementById('app-comments');
 
+getComments();
+
 const renderApp = () => {
     const appEl = document.getElementById('app');
-
-    getComments();
 
     const commentsHtml = comments.map((comment, index) => {
         return `<li class="comment">
