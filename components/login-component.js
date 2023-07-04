@@ -1,6 +1,7 @@
 import { loginUser, registerUser } from "../api.js";
+// import { form } from "../index.js";
 
-export function renderLoginComponent({ appEl, setToken, getComments }) {
+export function renderLoginComponent({ appEl, setToken, getComments, appComments, boxAuthorizeToAdd }) {
 
     let isLoginMode = true;
 
@@ -37,6 +38,7 @@ export function renderLoginComponent({ appEl, setToken, getComments }) {
         appEl.innerHTML = appHtml;
 
         document.getElementById('login-button').addEventListener('click', () => {
+
             if (isLoginMode) {
                 const login = document.getElementById('login-input').value;
                 const password = document.getElementById('password-input').value;
@@ -57,7 +59,10 @@ export function renderLoginComponent({ appEl, setToken, getComments }) {
                 })
                     .then((user) => {
                         setToken(`Bearer ${user.user.token}`)
+                        // boxAuthorizeToAdd.classList.add('hidden');
                         getComments();
+                        appEl.classList.add('hidden');
+                        appComments.classList.remove('hidden');
                     })
                     .catch(error => {
                         alert(error.message);
@@ -89,7 +94,10 @@ export function renderLoginComponent({ appEl, setToken, getComments }) {
                 })
                     .then((user) => {
                         setToken(`Bearer ${user.user.token}`)
+                        // boxAuthorizeToAdd.classList.add('hidden');
                         getComments();
+                        appEl.classList.add('hidden');
+                        appComments.classList.remove('hidden');
                     })
                     .catch(error => {
                         alert(error.message);

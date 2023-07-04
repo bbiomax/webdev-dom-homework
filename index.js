@@ -66,7 +66,7 @@ const renderApp = () => {
       <!-- Комментарии рендерятся из JS -->
       ${commentsHtml}
     </ul>
-    <p>Чтобы добавить комментарий, <a href="#" id="authorize-to-add" class="authorize-to-add">авторизуйтесь</a></p>
+    <p id="box-authorize-to-add">Чтобы добавить комментарий, <a href="#" id="authorize-to-add" class="authorize-to-add">авторизуйтесь</a></p>
     <div class="add-form">
       <input id="input-name" disabled
         type="text"
@@ -96,6 +96,7 @@ const renderApp = () => {
     const form = document.querySelector('.add-form');
 
     form.classList.add('hidden');
+    const boxAuthorizeToAdd = document.getElementById('box-authorize-to-add');
     const authorizeToAdd = document.getElementById('authorize-to-add');
     authorizeToAdd.addEventListener('click', () => {
         appComments.classList.add('hidden');
@@ -104,7 +105,7 @@ const renderApp = () => {
                 appEl, setToken: (newToken) => {
                     token = newToken;
                 },
-                getComments,
+                getComments, appComments, boxAuthorizeToAdd,
             });
     
             return;
